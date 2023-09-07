@@ -1,0 +1,17 @@
+
+<div class="chart-container">
+    <div class="chart-wrapper">
+        <canvas 
+            baseChart
+            [labels]="olympicsCountries$"
+            [data]="pieChartData"
+            [type]="pieChartType"
+            [options]="pieChartOptions"
+            [plugins]="pieChartPlugins"
+            [legend]="pieChartLegend" 
+            (chartClick)="viewDetailByName()"
+            >
+        </canvas>
+    </div>
+</div>
+
