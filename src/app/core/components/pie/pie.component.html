@@ -2,16 +2,30 @@
 <div class="chart-container">
     <div class="chart-wrapper">
         <canvas 
+            id="pie-chart"
             baseChart
             [labels]="olympicsCountries$"
             [data]="pieChartData"
             [type]="pieChartType"
             [options]="pieChartOptions"
-            [plugins]="pieChartPlugins"
             [legend]="pieChartLegend" 
-            (chartClick)="viewDetailByName()"
             >
         </canvas>
     </div>
 </div>
+
+<div class="countriesLink">
+    <div *ngFor="let country of olympicsCountries$">
+        <button (click)="getOlympicDetail(country)">{{ country }}</button>
+    </div>
+</div>
+
+
+<!-- (onDataSelect)="viewDetail($event)" -->
+<!-- (chartClick)="viewDetail($event)" -->
+<!-- 
+    (chartClick)="onChartClick($event)"
+    (chartClick)="pieChartOptions"
+    [plugins]="pieChartPlugins"
+ -->
 

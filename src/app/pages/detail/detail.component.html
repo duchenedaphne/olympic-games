@@ -1,42 +1,29 @@
 
 <div class="main-div">
+    <div class="medals-title">
+        <h3> {{ olympicCountry$ | uppercase }} </h3>
+    </div>
+    
+    <div class="subtitle-div">
 
-    <div *ngIf="olympic != undefined">
-        <div class="medals-title">
-            <h3> {{ olympic.country | uppercase }} </h3>
+        <div class="subtitle-p">
+            <p class="p1">Number of entries</p>
+            <p class="p2">{{ totalEntries$ }}</p>
         </div>
 
-        {{ getTotalEntries(olympic.participations.length) }}
-
-        <div *ngFor="let participation of olympic.participations">
-
-            <p>{{ participation.year }}</p>
-            <p>Médailles : {{ participation.medalsCount }}</p>
-            {{ getTotalMedals(participation.medalsCount) }}
-            {{ getTotalAthlete(participation.athleteCount) }}
-            
+        <div class="subtitle-p">
+            <p class="p1">Total number medals</p>
+            <p class="p2">{{ totalMedals$ }}</p>
         </div>
-
-        <div *ngFor="let participation of (olympic.participations | slice:olympic.participations.length -1)" class="subtitle-div">
-            <div class="subtitle-p">
-                <p class="p1">Number of entries</p>
-                <p class="p2">{{ totalEntries$ }}</p>
-            </div>
-            <div class="subtitle-p">
-                <p class="p1">Total number medals</p>
-                <p class="p2">{{ totalMedals$ }}</p>
-            </div>
-            <div class="subtitle-p">
-                <p class="p1">Total number of athlete</p>
-                <p class="p2">{{ totalAthlete$ }}</p>
-            </div>
+        
+        <div class="subtitle-p">
+            <p class="p1">Total number of athlete</p>
+            <p class="p2">{{ totalAthlete$ }}</p>
         </div>
     </div>
-    {{ resetTotals() }}
-
-    <a routerLink="/dashboard">Back</a>
-
-    <app-line></app-line>
     
+    <button (click)="goBack()">Back</button>
 </div>
+
+<app-line></app-line>
 

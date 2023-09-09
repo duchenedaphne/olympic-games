@@ -1,6 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
+import { Olympic } from 'src/app/core/models/Olympic';
+import { OlympicService } from 'src/app/core/services/olympic.service';
 
 @Component({
   selector: 'app-home',
@@ -9,15 +11,35 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  /***** VARIABLES : *****/
+  public olympics$: Observable<Olympic[]> | undefined;
+  public josNumber$: number = 0;
+  public olympicsLength$: number = 0;
+
+  /***** CONSTRUCTEUR : *****/
   constructor(
-    private router: Router
+    private olympicService: OlympicService
   ) {}
 
+  /***** ON INIT : *****/
   ngOnInit(): void {
-  }
+      
+    this.olympics$ = this.olympicService.getOlympics();
+      
+    this.olympics$.pipe(
+      tap(
+        (olympics:Olympic[]) => {
+          this.olympicsLength$ = olympics.length;
 
-  public dashboardAccess() {
-    
-    this.router.navigateByUrl(`dashboard`);
+          olympics.map(
+            (olympic:Olympic) => { 
+
+              this.josNumber$ += olympic.participations.length;
+            }
+          );
+        }
+      )
+    ).subscribe(); 
   }
+  
 }

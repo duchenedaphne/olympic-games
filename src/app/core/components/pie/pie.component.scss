@@ -1,6 +1,34 @@
 
 .chart-container {
-    width: 34rem;
-    height: 23rem;
+    width: 77%;
     margin: auto;
+    display: block;
+}
+
+.countriesLink {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 77%;
+    margin: auto;
+    text-align: center;
+    padding-top: 0.8rem;
+    padding-bottom: 2rem;
+}
+
+#pie-chart {
+    display: block;
+    cursor: pointer;
+}
+
+button {
+    border: none;
+    color: white;
+    background-color: rgb(121,61,82);
+    border-radius: 10px;
+    height: fit-content;
+    width: fit-content;
+    padding-left: 15px;
+    padding-right: 15px;
+    cursor: pointer;
 }

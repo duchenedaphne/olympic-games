@@ -2,20 +2,39 @@
 .mainHome {
     text-align: center;
     margin: auto;
-    padding-top: 10rem;
+    width: 77%;
+    padding-top: 1.5rem;
 }
 
-hr {
-    color: rgb(4,131,143);
-}
-
-button {
-    background-color: rgb(4,131,143);
+.medals-title {
     color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 20px;
-    text-transform: uppercase;
-    cursor: pointer;
+    background-color: rgb(4,131,143);
+    border-radius: 10px;
+    height: fit-content;
+    width: fit-content;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    margin: 1.5rem auto;
+    font-size: 1.5rem;
+}
+
+.subtitle-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.subtitle-p {
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(4,131,143);
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.p1 {
+    color: rgb(128,128,128);
 }
 

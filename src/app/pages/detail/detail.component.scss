@@ -1,32 +1,25 @@
 
-
 .main-div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-h2 {
+    width: 77%;
+    margin: auto;
+    padding-top: 2.5rem;
     text-align: center;
 }
 
 .medals-title {
-    text-align: center;
     color: white;
     background-color: rgb(4,131,143);
     border-radius: 10px;
     height: fit-content;
     width: fit-content;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
     margin: 1.5rem auto;
     font-size: 1.5rem;
 }
 
 .subtitle-div {
     display: flex;
-    width: 60%;
-    margin: auto;
     justify-content: space-between;
 }
 
@@ -35,12 +28,26 @@ h2 {
     border-width: 2px;
     border-style: solid;
     border-color: rgb(4,131,143);
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.5rem;
     text-align: center;
     font-weight: bolder;
 }
 
 .p1 {
     color: rgb(128,128,128);
+}
+
+button {
+    border: none;
+    color: white;
+    background-color: rgb(121,61,82);
+    border-radius: 10px;
+    height: fit-content;
+    width: fit-content;
+    padding-left: 15px;
+    padding-right: 15px;
+    cursor: pointer;
+    margin: 1rem auto;
 }

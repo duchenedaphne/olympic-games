@@ -1,11 +1,12 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Olympic } from '../../models/Olympic';
-import { take, tap } from 'rxjs';
-import { ChartOptions, ChartType } from 'chart.js';
-import { OlympicService } from '../../services/olympic.service';
+import { Observable, tap } from 'rxjs';
+import { ChartData, ChartEvent, ChartOptions, ChartType } from 'chart.js';
 import { Participation } from '../../models/Participation';
 import { Router } from '@angular/router';
+import { BaseChartDirective } from 'ng2-charts';
+import { OlympicService } from '../../services/olympic.service';
 
 @Component({
   selector: 'app-pie',
@@ -13,22 +14,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./pie.component.scss']
 })
 export class PieComponent implements OnInit {
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  /***** VARIABLES : *****/  
+  /***** VARIABLES : *****/
+  public olympics$: Observable<Olympic[]> | undefined;
+
   public olympicsDatas$: Olympic[] = [];
-
+  
+  public olympicsIds$: Array<{}> = [];
   public olympicsCountries$: string[] = [];
-  
-  public olympic$!: Olympic;
-  
-  public olympicsIds$: number[] = [];
 
   public allMedalsValues$: number[] = [];
-
   public totalMedals$: number = 0;
 
+  public olympicSelected$: Olympic | undefined;
+
   /***** GRAPHIQUE : *****/
-  public pieChartData = {
+  public pieChartData: ChartData = {
     
     labels: this.olympicsCountries$,
     datasets: [
@@ -49,17 +51,39 @@ export class PieComponent implements OnInit {
           'rgba(121,61,82,1)',
           'rgba(151,128,161,1)' 
         ],
+        // dataPoints: this.olympicsIds$,
+        // active: 
+        // datasetIndex: 
       }
     ]
   }
 
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
-  public pieChartPlugins = [];
+  // public pieChartPlugins = [DataLabelsPlugin];
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
-  }    
+    onClick: () => {
+
+      // console.log();      
+    } 
+  }
+
+  public chartClicked({
+    event,
+    active
+  } : {
+    event: ChartEvent;
+    active: object[];
+  }): void {
+    console.log(event, active);    
+  }
+
+  public onChartClick(event:any) {
+
+    console.log(event);
+  }
 
   /***** CONSTRUCTEUR : *****/
   constructor(
@@ -70,23 +94,27 @@ export class PieComponent implements OnInit {
   /***** ON INIT : *****/
   ngOnInit(): void {
 
-    this.olympicService.getOlympics().pipe(
-      take(1),
+    this.olympics$ = this.olympicService.getOlympics();
+    
+    this.olympics$.pipe(
       tap(
           (olympics:Olympic[]) => {
             this.olympicsDatas$ = olympics;
             
             olympics.map(
               (olympic:Olympic) => { 
-                
+
+                this.olympicsIds$.push({
+                  id: olympic.id, 
+                  country: olympic.country
+                }); 
+
                 this.olympicsCountries$.push(olympic.country);
-                this.olympicsIds$.push(olympic.id); 
-                this.olympicsDatas$.push(olympic);
 
                 olympic.participations.map(
                   (participation: Participation) => {
         
-                    this.getTotalMedals(participation.medalsCount)      
+                    this.totalMedals$ += participation.medalsCount;     
                   }
                 )
         
@@ -94,7 +122,7 @@ export class PieComponent implements OnInit {
 
                   (participation: Participation) => {
         
-                    this.getAllMedalsValues(this.totalMedals$)      
+                    this.allMedalsValues$.push(this.totalMedals$);
                   }
                 )
                 this.resetTotalMedals();
@@ -106,42 +134,21 @@ export class PieComponent implements OnInit {
   }
 
   /***** METHODES : *****/
-  public addCountryName(countryName: string): void {
-
-    this.olympicsCountries$.push(countryName);
-    console.log(this.olympicsCountries$);
-  }
-
-  public showCountriesName():void {
-
-    console.log(this.olympicsCountries$);
-  }
-
-  public getTotalMedals(medalsCount: number) {
-
-      this.totalMedals$ += medalsCount;         
-  }
-
-  public getAllMedalsValues(totalMedals: number): void {
-
-    this.allMedalsValues$.push(totalMedals);
-  }
-
   public resetTotalMedals() {
 
     this.totalMedals$ = 0;
   }
 
-  public viewDetailByName() {
-
-    const olympicId:number = 2;
+  public getOlympicDetail(country:string): void {
     
-    this.router.navigateByUrl(`detail/${olympicId}`);
-  }
+    this.olympicSelected$ = this.olympicsDatas$.find(
+      (olympic: Olympic) => olympic.country === country
+    )
 
-  public viewDetail(olympicId:number) {
-    
-    this.router.navigateByUrl(`detail/${olympicId}`);
+    if (this.olympicSelected$ != undefined) {
+      
+      this.router.navigateByUrl(`detail/${this.olympicSelected$?.id}`);
+    }
   }
 
 }

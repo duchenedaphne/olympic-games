@@ -10,7 +10,6 @@ import { NgChartsModule } from 'ng2-charts';
 import { LineComponent } from './core/components/line/line.component';
 import { PieComponent } from './core/components/pie/pie.component';
 import { DetailComponent } from './pages/detail/detail.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -19,8 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent, 
     NotFoundComponent, 
     LineComponent,
-    PieComponent,  
-    DashboardComponent,
+    PieComponent, 
     DetailComponent,
   ],
   imports: [
