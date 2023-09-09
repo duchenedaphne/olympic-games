@@ -2,9 +2,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Olympic } from '../../models/Olympic';
 import { Observable, tap } from 'rxjs';
-import { ChartData, ChartEvent, ChartOptions, ChartType } from 'chart.js';
+import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { Participation } from '../../models/Participation';
-import { Router } from '@angular/router';
 import { BaseChartDirective } from 'ng2-charts';
 import { OlympicService } from '../../services/olympic.service';
 
@@ -18,25 +17,20 @@ export class PieComponent implements OnInit {
 
   /***** VARIABLES : *****/
   public olympics$: Observable<Olympic[]> | undefined;
-
-  public olympicsDatas$: Olympic[] = [];
   
-  public olympicsIds$: Array<{}> = [];
+  public olympicsIds$: number[] = [];
   public olympicsCountries$: string[] = [];
 
   public allMedalsValues$: number[] = [];
   public totalMedals$: number = 0;
 
-  public olympicSelected$: Olympic | undefined;
-
   /***** GRAPHIQUE : *****/
-  public pieChartData: ChartData = {
-    
+  public pieChartData: ChartData = {    
     labels: this.olympicsCountries$,
     datasets: [
       {
         data: this.allMedalsValues$,
-        label: '',
+        label: 'Medals per country',
         backgroundColor: [
           'rgba(149,96,101,1)', 
           'rgba(184,203,231,1)', 
@@ -51,44 +45,31 @@ export class PieComponent implements OnInit {
           'rgba(121,61,82,1)',
           'rgba(151,128,161,1)' 
         ],
-        // dataPoints: this.olympicsIds$,
-        // active: 
-        // datasetIndex: 
+        hidden: false,
       }
     ]
   }
 
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
-  // public pieChartPlugins = [DataLabelsPlugin];
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
-    onClick: () => {
+    onClick: (event:any) => {
 
-      // console.log();      
+      const points = this.chart?.chart?.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+
+      if (points?.length) {
+        const firstPoint = points[0];
+        
+        window.open(`detail/${this.olympicsIds$[firstPoint.index]}`, '_self');
+      }
     } 
-  }
-
-  public chartClicked({
-    event,
-    active
-  } : {
-    event: ChartEvent;
-    active: object[];
-  }): void {
-    console.log(event, active);    
-  }
-
-  public onChartClick(event:any) {
-
-    console.log(event);
   }
 
   /***** CONSTRUCTEUR : *****/
   constructor(
-    private olympicService: OlympicService,
-    private router: Router
+    private olympicService: OlympicService
   ) { }
 
   /***** ON INIT : *****/
@@ -98,16 +79,11 @@ export class PieComponent implements OnInit {
     
     this.olympics$.pipe(
       tap(
-          (olympics:Olympic[]) => {
-            this.olympicsDatas$ = olympics;
-            
+          (olympics:Olympic[]) => {            
             olympics.map(
               (olympic:Olympic) => { 
 
-                this.olympicsIds$.push({
-                  id: olympic.id, 
-                  country: olympic.country
-                }); 
+                this.olympicsIds$.push(olympic.id); 
 
                 this.olympicsCountries$.push(olympic.country);
 
@@ -137,18 +113,6 @@ export class PieComponent implements OnInit {
   public resetTotalMedals() {
 
     this.totalMedals$ = 0;
-  }
-
-  public getOlympicDetail(country:string): void {
-    
-    this.olympicSelected$ = this.olympicsDatas$.find(
-      (olympic: Olympic) => olympic.country === country
-    )
-
-    if (this.olympicSelected$ != undefined) {
-      
-      this.router.navigateByUrl(`detail/${this.olympicSelected$?.id}`);
-    }
   }
 
 }

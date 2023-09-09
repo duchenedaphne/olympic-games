@@ -43,22 +43,23 @@ export class LineComponent implements OnInit {
         label: 'Medals',
         backgroundColor: 'rgba(4,131,143,0.3)',
         borderColor: 'rgb(4,131,143)',
+        hidden: false
       },
       {
         data: this.allAthleteValues$,
         label: 'Athletes',
         backgroundColor: 'rgba(184,203,231,0.3)', 
         borderColor: 'rgba(184,203,231,1)',
+        hidden: false
       }
     ]
   }
-
+  
+  public lineChartType: ChartType = 'line';
   public lineChartOptions: ChartOptions = {
     responsive: true,
   };
-
   public lineChartLegend = true;
-  public lineChartType: ChartType = 'line';
   public lineChartPlugins = [];
 
   /***** CONSTRUCTEUR : *****/

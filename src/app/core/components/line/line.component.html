@@ -2,12 +2,13 @@
 <div class="chart-container">
     <div class="chart-wrapper">
         <canvas 
+            id="line-chart"
             baseChart 
             [data]="lineChartData"
             [type]="lineChartType"
             [options]="lineChartOptions"
-            [plugins]="lineChartPlugins">
             [legend]="lineChartLegend"
+            [plugins]="lineChartPlugins"
         ></canvas>
     </div>
 </div>
