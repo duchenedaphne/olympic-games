@@ -1,9 +1,10 @@
 
 .chart-container {
     width: 77%;
+    max-width: 40rem;
     margin: auto;
 }
 
-#line-chart {
+.line-chart {
     display: block;
 }

@@ -3,12 +3,12 @@
     <div class="chart-wrapper">
         <canvas 
             id="line-chart"
+            class="line-chart"
             baseChart 
             [data]="lineChartData"
             [type]="lineChartType"
             [options]="lineChartOptions"
-            [legend]="lineChartLegend"
-            [plugins]="lineChartPlugins"
+            [legend]="true"
         ></canvas>
     </div>
 </div>

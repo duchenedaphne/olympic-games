@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, take, tap } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
@@ -11,29 +11,26 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class HomeComponent implements OnInit {
 
-  /***** VARIABLES : *****/
   public olympics$: Observable<Olympic[]> | undefined;
   public josNumber$: number = 0;
   public olympicsLength$: number = 0;
-
-  /***** CONSTRUCTEUR : *****/
+  
   constructor(
     private olympicService: OlympicService
   ) {}
-
-  /***** ON INIT : *****/
+  
   ngOnInit(): void {
       
     this.olympics$ = this.olympicService.getOlympics();
       
     this.olympics$.pipe(
+      take(2),
       tap(
         (olympics:Olympic[]) => {
           this.olympicsLength$ = olympics.length;
 
           olympics.map(
-            (olympic:Olympic) => { 
-
+            (olympic:Olympic) => {
               this.josNumber$ += olympic.participations.length;
             }
           );

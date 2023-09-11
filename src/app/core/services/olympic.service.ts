@@ -1,8 +1,8 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
 
 @Injectable({
@@ -18,24 +18,45 @@ export class OlympicService {
   loadInitialData() {
 
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
-
       tap((value) => this.olympics$.next(value)),
 
-      catchError((error, caught) => {
+      catchError(
+        (error: any) => {
 
-        // TODO: improve error handling
-        console.error(error);
-        // can be useful to end loading state and let the user know something went wrong
-        this.olympics$.next([]);
+          if (error.status === 404) {
+            error.message = "Oops... The olympic results can't be found."
+            alert(error.message);
+            
+          } else {
+            error.message = "Oops... Something went wront, please try again."
+            alert(error.message + ' : ' + error.statusText);
+          }
 
-        return caught;
+          this.olympics$.error;
+
+        return throwError(
+          () => new Error(error.message + ' code status : ' + error.status + ' : ' + error.statusText)
+        );
       })
     );
   }
   
-  getOlympics(): Observable<Olympic[]> {
-    
+  public getOlympics(): Observable<Olympic[]> {
     return this.olympics$.asObservable();
+  }
+
+  public getOneOlympic(id:number): Observable<Olympic | undefined> {
+
+    return this.getOlympics().pipe(
+      map(
+        (olympics: Olympic[]) => (
+          olympics.find(
+            (olympic: Olympic) => 
+              olympic.id === id
+          )
+        )
+      )
+    )
   }
 
 }

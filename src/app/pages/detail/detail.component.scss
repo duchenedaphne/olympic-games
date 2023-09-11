@@ -2,7 +2,6 @@
 .main-div {
     width: 77%;
     margin: auto;
-    padding-top: 2.5rem;
     text-align: center;
 }
 
@@ -21,6 +20,8 @@
 .subtitle-div {
     display: flex;
     justify-content: space-between;
+    max-width: 35rem;
+    margin: auto;
 }
 
 .subtitle-p {
@@ -28,15 +29,18 @@
     border-width: 2px;
     border-style: solid;
     border-color: rgb(4,131,143);
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-top: 0.5rem;
+    padding: 0 0.3rem;
+    margin-bottom: 0;
     text-align: center;
     font-weight: bolder;
 }
 
 .p1 {
     color: rgb(128,128,128);
+    margin-top: 0.5rem;
+}
+.p2 {
+    margin-top: 0;
 }
 
 button {

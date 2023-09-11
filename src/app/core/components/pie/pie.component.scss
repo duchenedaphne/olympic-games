@@ -1,11 +1,14 @@
 
 .chart-container {
     width: 77%;
+    max-width: 33rem;
     margin: auto;
     display: block;
+    padding-bottom: 3rem;
+    padding-top: 1rem;
 }
 
-#pie-chart {
+.pie-chart {
     display: block;
     cursor: pointer;
 }

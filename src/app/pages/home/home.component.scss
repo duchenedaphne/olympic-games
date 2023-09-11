@@ -1,9 +1,16 @@
 
-.mainHome {
+.img {
+    background-image: url("../../../assets/banner.png");
+    background-position: center;
+    background-size: cover;
+    height: 7.5rem;
+    margin: auto;
+}
+
+.main-div {
     text-align: center;
     margin: auto;
     width: 77%;
-    padding-top: 1.5rem;
 }
 
 .medals-title {
@@ -20,7 +27,9 @@
 
 .subtitle-div {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    max-width: 25rem;
+    margin: auto;
 }
 
 .subtitle-p {
@@ -28,13 +37,16 @@
     border-width: 2px;
     border-style: solid;
     border-color: rgb(4,131,143);
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 0 10px;
     text-align: center;
     font-weight: bolder;
 }
 
 .p1 {
     color: rgb(128,128,128);
+    margin-top: 0.5rem;
+}
+.p2 {
+    margin-top: 0;
 }
 

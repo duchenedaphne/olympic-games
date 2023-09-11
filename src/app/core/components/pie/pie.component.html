@@ -3,11 +3,12 @@
     <div class="chart-wrapper">
         <canvas 
             id="pie-chart"
+            class="pie-chart"
             baseChart
             [data]="pieChartData"
             [type]="pieChartType"
             [options]="pieChartOptions"
-            [legend]="pieChartLegend"
+            [legend]="true"
         ></canvas>
     </div>
 </div>
