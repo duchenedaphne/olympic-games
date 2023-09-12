@@ -6,7 +6,7 @@
 
 Anytime, on all your devices : 💻Computer, Tablet, and Mobile📱.
 
-## 🛠 Technologies
+## 🛠 Software tools
 
 - [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
 - Node.js : `npm install`.
