@@ -1,7 +1,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
 
@@ -34,9 +34,7 @@ export class OlympicService {
 
           this.olympics$.next([]);
 
-        return throwError(
-          () => new Error(error.message + ' code status : ' + error.status + ' : ' + error.statusText)
-        );
+        throw new Error(error.message + ' code status : ' + error.status + ' : ' + error.statusText)
       })
     );
   }
