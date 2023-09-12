@@ -28,7 +28,7 @@ export class OlympicService {
             alert(error.message);
             
           } else {
-            error.message = "Oops... Something went wront, please try again."
+            error.message = "Oops... Something went wrong, please try again."
             alert(error.message + ' : ' + error.statusText);
           }
 
