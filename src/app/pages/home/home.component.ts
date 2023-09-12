@@ -12,8 +12,8 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 export class HomeComponent implements OnInit {
 
   public olympics$: Observable<Olympic[]> | undefined;
-  public josNumber$: number = 0;
-  public olympicsLength$: number = 0;
+  public josNumber: number = 0;
+  public olympicsLength: number = 0;
   
   constructor(
     private olympicService: OlympicService
@@ -27,11 +27,11 @@ export class HomeComponent implements OnInit {
       take(2),
       tap(
         (olympics:Olympic[]) => {
-          this.olympicsLength$ = olympics.length;
+          this.olympicsLength = olympics.length;
 
           olympics.map(
             (olympic:Olympic) => {
-              this.josNumber$ += olympic.participations.length;
+              this.josNumber += olympic.participations.length;
             }
           );
         }

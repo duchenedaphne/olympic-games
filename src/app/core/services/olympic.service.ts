@@ -32,7 +32,7 @@ export class OlympicService {
             alert(error.message + ' : ' + error.statusText);
           }
 
-          this.olympics$.error;
+          this.olympics$.next([]);
 
         return throwError(
           () => new Error(error.message + ' code status : ' + error.status + ' : ' + error.statusText)

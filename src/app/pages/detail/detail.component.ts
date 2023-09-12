@@ -14,11 +14,11 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 export class DetailComponent implements OnInit {
 
   public olympicOne$!: Observable<Olympic | undefined>;
-  public olympicId$!:number;
-  public olympicCountry$:string | undefined;
-  public totalMedals$: number = 0;
-  public totalEntries$: number | undefined;
-  public totalAthlete$: number = 0;
+  public olympicId!:number;
+  public olympicCountry:string | undefined;
+  public totalMedals: number = 0;
+  public totalEntries: number | undefined;
+  public totalAthlete: number = 0;
 
   constructor(
     private olympicService: OlympicService,
@@ -28,20 +28,20 @@ export class DetailComponent implements OnInit {
   
   ngOnInit(): void {
 
-    this.olympicId$ = +this.route.snapshot.params['id'];
-    this.olympicOne$ = this.olympicService.getOneOlympic(this.olympicId$);
+    this.olympicId = +this.route.snapshot.params['id'];
+    this.olympicOne$ = this.olympicService.getOneOlympic(this.olympicId);
 
     this.olympicOne$.pipe(
       take(2),
       tap(
         (olympic: Olympic | undefined) => {
-          this.olympicCountry$ = olympic?.country;
-          this.totalEntries$ = olympic?.participations.length;
+          this.olympicCountry = olympic?.country;
+          this.totalEntries = olympic?.participations.length;
           
           olympic?.participations.map(
             (participation: Participation) => {
-              this.totalMedals$ += participation.medalsCount;
-              this.totalAthlete$ += participation.athleteCount;
+              this.totalMedals += participation.medalsCount;
+              this.totalAthlete += participation.athleteCount;
             }
           )
         }

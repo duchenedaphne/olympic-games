@@ -17,10 +17,10 @@ export class LineComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   public olympicOne$!: Observable<Olympic | undefined>;
-  public olympicId$!:number;
-  public participationsYears$: number[] = [];
-  public allMedalsValues$: number[] = [];
-  public allAthleteValues$: number[] = [];
+  public olympicId!:number;
+  public participationsYears: number[] = [];
+  public allMedalsValues: number[] = [];
+  public allAthleteValues: number[] = [];
   
   public lineChartData!: ChartData;  
   public lineChartType: ChartType = 'line';
@@ -35,8 +35,8 @@ export class LineComponent implements OnInit {
   
   ngOnInit(): void {
     
-    this.olympicId$ = +this.route.snapshot.params['id'];
-    this.olympicOne$ = this.olympicService.getOneOlympic(this.olympicId$);
+    this.olympicId = +this.route.snapshot.params['id'];
+    this.olympicOne$ = this.olympicService.getOneOlympic(this.olympicId);
 
     this.olympicOne$?.pipe(
       take(2),
@@ -45,9 +45,9 @@ export class LineComponent implements OnInit {
           olympic?.participations.map(
             (participation: Participation) => {
 
-              this.participationsYears$.push(participation.year);
-              this.allMedalsValues$.push(participation.medalsCount);
-              this.allAthleteValues$.push(participation.athleteCount);
+              this.participationsYears.push(participation.year);
+              this.allMedalsValues.push(participation.medalsCount);
+              this.allAthleteValues.push(participation.athleteCount);
             }
           )
           this.initChart();
@@ -58,17 +58,17 @@ export class LineComponent implements OnInit {
 
   public initChart(): void {
     this.lineChartData = {
-      labels: this.participationsYears$,
+      labels: this.participationsYears,
       datasets: [
         {
-          data: this.allMedalsValues$,
+          data: this.allMedalsValues,
           label: 'Medals',
           backgroundColor: 'rgba(4,131,143,0.3)',
           borderColor: 'rgb(4,131,143)',
           hidden: false
         },
         {
-          data: this.allAthleteValues$,
+          data: this.allAthleteValues,
           label: 'Athletes',
           backgroundColor: 'rgba(184,203,231,0.3)', 
           borderColor: 'rgba(184,203,231,1)',

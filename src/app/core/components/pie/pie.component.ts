@@ -16,10 +16,10 @@ export class PieComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   
   public olympics$: Observable<Olympic[]> | undefined;
-  public olympicsIds$: number[] = [];
-  public olympicsCountries$: string[] = [];
-  public allMedalsValues$: number[] = [];
-  public totalMedals$: number = 0;
+  public olympicsIds: number[] = [];
+  public olympicsCountries: string[] = [];
+  public allMedalsValues: number[] = [];
+  public totalMedals: number = 0;
   
   public pieChartData!: ChartData;
   public pieChartType: ChartType = 'pie';
@@ -39,21 +39,21 @@ export class PieComponent implements OnInit {
         (olympics:Olympic[]) => {            
           olympics.map(
             (olympic:Olympic) => { 
-              this.olympicsIds$.push(olympic.id); 
-              this.olympicsCountries$.push(olympic.country);
+              this.olympicsIds.push(olympic.id); 
+              this.olympicsCountries.push(olympic.country);
 
               olympic.participations.map(
                 (participation: Participation) => {
-                  this.totalMedals$ += participation.medalsCount;     
+                  this.totalMedals += participation.medalsCount;     
                 }
               )
       
               olympic.participations.slice(olympic.participations.length -1).map(
                 (participation: Participation) => {
-                  this.allMedalsValues$.push(this.totalMedals$);
+                  this.allMedalsValues.push(this.totalMedals);
                 }
               )
-              this.totalMedals$ = 0;
+              this.totalMedals = 0;
             }
           )
           this.initChart();
@@ -65,10 +65,10 @@ export class PieComponent implements OnInit {
 
   public initChart():void {
     this.pieChartData = {    
-      labels: this.olympicsCountries$,
+      labels: this.olympicsCountries,
       datasets: [
         {
-          data: this.allMedalsValues$,
+          data: this.allMedalsValues,
           label: 'Medals per country',
           backgroundColor: [
             'rgba(149,96,101,1)', 
@@ -98,7 +98,7 @@ export class PieComponent implements OnInit {
 
         if (points?.length) {
           const firstPoint = points[0];
-          window.open(`detail/${this.olympicsIds$[firstPoint.index]}`, '_self');
+          window.open(`detail/${this.olympicsIds[firstPoint.index]}`, '_self');
         }
       } 
     }
