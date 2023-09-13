@@ -1,11 +1,12 @@
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { Olympic } from '../../models/Olympic';
 import { Observable, take, tap } from 'rxjs';
 import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { Participation } from '../../models/Participation';
 import { BaseChartDirective } from 'ng2-charts';
 import { OlympicService } from '../../services/olympic.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pie',
@@ -26,7 +27,9 @@ export class PieComponent implements OnInit {
   public pieChartOptions!: ChartOptions;
 
   constructor(
-    private olympicService: OlympicService
+    private olympicService: OlympicService,
+    private router: Router,
+    private ngZone: NgZone
   ) { }
   
   ngOnInit(): void {
@@ -98,7 +101,9 @@ export class PieComponent implements OnInit {
 
         if (points?.length) {
           const firstPoint = points[0];
-          window.open(`detail/${this.olympicsIds[firstPoint.index]}`, '_self');
+          this.ngZone.run( () =>
+            this.router.navigateByUrl(`detail/${this.olympicsIds[firstPoint.index]}`)
+          );
         }
       } 
     }
