@@ -30,28 +30,34 @@
     border-style: solid;
     border-color: rgb(4,131,143);
     padding: 0 0.3rem;
-    margin-bottom: 0;
+    margin-bottom: 1.5rem;
     text-align: center;
-    font-weight: bolder;
+    line-height: 0.5rem;
 }
 
 .p1 {
     color: rgb(128,128,128);
-    margin-top: 0.5rem;
+    margin-top: 0.7rem;
+    font-weight: 400;
 }
 .p2 {
     margin-top: 0;
+    font-weight: 500;
 }
 
 button {
     border: none;
-    color: white;
-    background-color: rgb(121,61,82);
+    color: rgb(111,111,111);
+    background-color: white;
     border-radius: 10px;
+    border-color: rgb(111,111,111);
     height: fit-content;
     width: fit-content;
     padding-left: 15px;
     padding-right: 15px;
     cursor: pointer;
     margin: 1rem auto;
+    letter-spacing: 0.1rem;
+    font-size: 1.5rem;
+    font-weight: 400;
 }

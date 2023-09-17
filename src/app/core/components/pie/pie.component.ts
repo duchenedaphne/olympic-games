@@ -88,6 +88,20 @@ export class PieComponent implements OnInit {
             'rgba(151,128,161,1)' 
           ],
           hidden: false,
+          hoverBackgroundColor: [
+            'rgba(149,96,101,0.9)', 
+            'rgba(184,203,231,0.9)', 
+            'rgba(137,161,219,0.9)', 
+            'rgba(121,61,82,0.9)',  
+            'rgba(151,128,161,0.9)'
+          ],
+          hoverBorderColor: [
+            'rgba(149,96,101,0.7)', 
+            'rgba(184,203,231,0.7)', 
+            'rgba(137,161,219,0.7)', 
+            'rgba(121,61,82,0.7)',  
+            'rgba(151,128,161,0.7)'
+          ],
         }
       ]
     }

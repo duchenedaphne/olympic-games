@@ -63,15 +63,25 @@ export class LineComponent implements OnInit {
         {
           data: this.allMedalsValues,
           label: 'Medals',
-          backgroundColor: 'rgba(4,131,143,0.3)',
-          borderColor: 'rgb(4,131,143)',
+          backgroundColor: 'rgba(151,128,161,1)',
+          borderColor: 'rgb(151,128,161)',
+          pointBackgroundColor: 'rgba(151,128,161,1)',
+          pointHoverBackgroundColor: 'rgba(151,128,161,1)',
+          hoverBorderColor: 'rgba(151,128,161,1)',
+          hoverBackgroundColor: 'rgba(151,128,161,1)',
+          pointHoverBorderColor: 'rgba(151,128,161,1)',
           hidden: false
         },
         {
           data: this.allAthleteValues,
           label: 'Athletes',
-          backgroundColor: 'rgba(184,203,231,0.3)', 
+          backgroundColor: 'rgba(184,203,231,1)', 
           borderColor: 'rgba(184,203,231,1)',
+          pointBackgroundColor: 'rgba(184,203,231,1)',
+          pointHoverBackgroundColor: 'rgba(184,203,231,1)',
+          hoverBorderColor: 'rgba(184,203,231,1)',
+          hoverBackgroundColor: 'rgba(184,203,231,1)',
+          pointHoverBorderColor: 'rgba(184,203,231,1)',
           hidden: false
         }
       ]
